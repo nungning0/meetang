@@ -24,15 +24,20 @@ def parse_arguments(user_input):
     return {'category': category, 'price': price, 'item': item}
 
 
+def store_expense(expense):
+    csv_line = expense['item'] + ',' + str(expense['price']) + ',' + expense['category']
+    with open('expenses.csv', 'a+') as file_object:
+        file_object.write(csv_line)
+
+
 if __name__ == "__main__":
     while True:
         user_expense = input('Add your expenses: ')
-        result = parse_arguments(user_expense)
         if user_expense == 'q':
             break
+
+        expense = parse_arguments(user_expense)
         print(
-            result['category'] + ' is added to category | ' + str(
-                result['price']) + ' is added to price | ' + result['item'] + ' is added to item')
-
-
-
+            expense['category'] + ' is added to category | ' + str(
+                expense['price']) + ' is added to price | ' + expense['item'] + ' is added to item')
+        store_expense(expense)

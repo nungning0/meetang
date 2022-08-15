@@ -2,7 +2,7 @@ from meetang import expenses
 
 
 def test_arg_parsing():
-    result = expenses.parse_arguments('vacuum bottle /workout/equip 590')
-    assert result['price'] == 590
-    assert result['item'] == 'vacuum bottle'
-    assert result['category'] == '/workout/equip'
+    expense = expenses.parse_arguments('vacuum bottle /workout/equip 590')
+    assert expense['price'] == 590
+    assert expense['item'] == 'vacuum bottle'
+    assert expense['category'] == '/workout/equip'
