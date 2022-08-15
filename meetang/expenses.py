@@ -25,5 +25,14 @@ def parse_arguments(user_input):
 
 
 if __name__ == "__main__":
-    user_expense = input('Add your expenses: ')
-    parse_arguments(user_expense)
+    while True:
+        user_expense = input('Add your expenses: ')
+        result = parse_arguments(user_expense)
+        if user_expense == 'q':
+            break
+        print(
+            result['category'] + ' is added to category | ' + str(
+                result['price']) + ' is added to price | ' + result['item'] + ' is added to item')
+
+
+
