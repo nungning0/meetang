@@ -21,7 +21,7 @@ def parse_arguments(user_input):
             item = item.lstrip()
             item += " " + arg
 
-    return category, price, item
+    return {'category': category, 'price': price, 'item': item}
 
 
 if __name__ == "__main__":
