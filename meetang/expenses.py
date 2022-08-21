@@ -30,14 +30,27 @@ def store_expense(expense):
         file_object.write(csv_line)
 
 
+def load_expense():
+    expenses = []
+
+    with open('expenses.csv') as file_object:
+        lines = file_object.readlines()
+        for line in lines:
+            item, price, category, *_ = line.split(',')
+            expense = {'category': category, 'price': price, 'item': item}
+            expenses.append(expense)
+
+    return expenses
+
+
 if __name__ == "__main__":
     while True:
-        user_expense = input('Add your expenses: ')
-        if user_expense == 'q':
+        user_input = input('Add your expenses: ')
+        if user_input == 'q':
             break
 
-        expense = parse_arguments(user_expense)
+        parsed_expense = parse_arguments(user_input)
         print(
-            expense['category'] + ' is added to category | ' + str(
-                expense['price']) + ' is added to price | ' + expense['item'] + ' is added to item')
-        store_expense(expense)
+            parsed_expense['category'] + ' is added to category | ' + str(
+                parsed_expense['price']) + ' is added to price | ' + parsed_expense['item'] + ' is added to item')
+        store_expense(parsed_expense)
