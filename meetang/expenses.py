@@ -8,13 +8,8 @@ class Expense:
     price: float
     category: str
 
-
-def expense_i(inf):
-    print(f"this is {inf.item} cost {inf.price} category {inf.category}")
-
-
-v = Expense('fish', 900, 'food')
-expense_i(v)
+    def __str__(self):
+        return f'{self.item} for {self.price} in category {self.category}'
 
 
 def is_price(word):
@@ -50,7 +45,7 @@ def store_expense(expense: Expense):
 
 
 def load_expense() -> List[Expense]:
-    expenses : List[Expense] = []
+    expenses: List[Expense] = []
 
     with open('expenses.csv') as file_object:
         lines = file_object.readlines()
@@ -68,8 +63,6 @@ if __name__ == "__main__":
         if user_input == 'q':
             break
 
-        parsed_expense : Expense = parse_arguments(user_input)
-        print(
-            f"""{parsed_expense.item} is added to item 
-                {parsed_expense.price} is added to price {parsed_expense.category} is added to category)""")
+        parsed_expense: Expense = parse_arguments(user_input)
+        print(parsed_expense)
         store_expense(parsed_expense)
