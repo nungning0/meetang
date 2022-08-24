@@ -65,7 +65,28 @@ def print_expenses_table(expenses: List[Expense]):
     print(f"| Item{' ' * (padding - 4)}| Price{' ' * (price_padding - 5)}| Category{' ' * (padding - 8)}")
     print("-" * (padding * 3 + 17))
     for expense in expenses:
-        print(f"| {expense.item}{' ' * (padding - len(expense.item))}| {expense.price}{' ' * (price_padding - len(str(expense.price)))}| {expense.category}{' ' * (padding - len(expense.category))}")
+        print(
+            f"| {expense.item}{' ' * (padding - len(expense.item))}| {expense.price}{' ' * (price_padding - len(str(expense.price)))}| {expense.category}{' ' * (padding - len(expense.category))}")
+
+    print(f"Total: {calc_sum(expenses)}")
+
+
+def find_max_characters(items):
+    max_char = 0
+    for item in items:
+        n = len(item)
+        if n >= max_char:
+            max_char = n
+
+    return max_char
+
+
+def calc_sum(expense):
+    sum_ = 0
+    for e in expense:
+        sum_ += e.price
+
+    return sum_
 
 
 if __name__ == "__main__":
