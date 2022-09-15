@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import List
+from typing import List, Iterable, Optional
 
 EXPENSES_FILE_PATH = '/home/ning/Documents/Expenses/expenses.csv'
 
@@ -71,12 +71,8 @@ def print_expenses_table(expenses: List[Expense]):
     print(f"Highest Expense: {max_expense(expenses)}")
 
 
-def calc_sum(expense):
-    sum_ = 0
-    for e in expense:
-        sum_ += e.price
-
-    return sum_
+def calc_sum(expenses: Iterable[Expense]) -> float:
+    return sum([expense.price for expense in expenses])
 
 
 def max_expense(expenses: List[Expense]) -> Optional[Expense]:
