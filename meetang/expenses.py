@@ -22,22 +22,21 @@ def is_price(word):
         return False
 
 
-def parse_arguments(user_input) -> Expense:
+def parse_arguments(user_input: str) -> Expense:
     item = ''
     category = ''
     price = -1
 
-    args = user_input.split()
+    args: List[str] = user_input.split()
     for arg in args:
         if arg.startswith('/'):
             category = arg
         elif is_price(arg):
             price = float(arg)
         else:
-            item = item.lstrip()
-            item += " " + arg
+            item += arg + " "
 
-    return Expense(item, price, category)
+    return Expense(item.rstrip(), price, category)
 
 
 def store_expense(expense: Expense):
@@ -69,16 +68,7 @@ def print_expenses_table(expenses: List[Expense]):
             f"| {expense.item}{' ' * (padding - len(expense.item))}| {expense.price}{' ' * (price_padding - len(str(expense.price)))}| {expense.category}{' ' * (padding - len(expense.category))}")
 
     print(f"Total: {calc_sum(expenses)}")
-
-
-def find_max_characters(items):
-    max_char = 0
-    for item in items:
-        n = len(item)
-        if n >= max_char:
-            max_char = n
-
-    return max_char
+    print(f"Highest Expense: {max_expense(expenses)}")
 
 
 def calc_sum(expense):
@@ -87,6 +77,14 @@ def calc_sum(expense):
         sum_ += e.price
 
     return sum_
+
+
+def max_expense(expenses: List[Expense]) -> Optional[Expense]:
+    sorted_expenses = sorted(expenses, key=lambda e: e.price, reverse=True)
+    if not expenses:
+        return None
+
+    return sorted_expenses[0]
 
 
 if __name__ == "__main__":
@@ -101,7 +99,7 @@ if __name__ == "__main__":
             break
         if user_cmd == 'a':
             while True:
-                user_input = input('Add your expenses: ')
+                user_input: str = input('Add your expenses: ')
                 parsed_expense: Expense = parse_arguments(user_input)
                 if not parsed_expense.item:
                     print("no item")

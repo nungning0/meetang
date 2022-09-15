@@ -35,3 +35,13 @@ def test_store_load_expense():
     expenses.store_expense(expense_2)
     expenses_list_2 = expenses.load_expense()
     assert expense_2 == expenses_list_2[1]
+
+
+def max_expense(expense):
+    max_value = 0
+    for e in expense:
+        v = e.price
+    if v >= max_value:
+        max_value = v
+
+    return max_value
