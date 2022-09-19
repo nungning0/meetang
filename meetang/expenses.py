@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import List, Iterable, Optional
 
-EXPENSES_FILE_PATH = '/home/ning/Documents/Expenses/expenses.csv'
+from meetang import paths
 
 
 @dataclass
@@ -41,14 +41,14 @@ def parse_arguments(user_input: str) -> Expense:
 
 def store_expense(expense: Expense):
     csv_line = expense.item + ',' + str(expense.price) + ',' + expense.category + '\n'
-    with open(EXPENSES_FILE_PATH, 'a+') as file_object:
+    with open(paths.expenses_path(True), 'a+') as file_object:
         file_object.write(csv_line)
 
 
 def load_expense() -> List[Expense]:
     expenses: List[Expense] = []
 
-    with open(EXPENSES_FILE_PATH) as file_object:
+    with open(paths.expenses_path()) as file_object:
         lines = file_object.readlines()
         for line in lines:
             item, price, category, *_ = line.rstrip().split(',')
