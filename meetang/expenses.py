@@ -25,7 +25,7 @@ def is_price(word):
 def parse_arguments(user_input: str) -> Expense:
     item = ''
     category = ''
-    price = -1
+    price = 0
 
     args: List[str] = user_input.split()
     for arg in args:
