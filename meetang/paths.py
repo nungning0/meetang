@@ -1,8 +1,13 @@
 import os
 from pathlib import Path
 
+IS_TEST = False  # TODO better solution
+
 
 def expenses_path(create: bool = False):
+    if IS_TEST:
+        return Path.cwd() / "expenses.csv"
+
     exp_dir = expenses_dir_path()
 
     if create:

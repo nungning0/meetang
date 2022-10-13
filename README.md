@@ -10,8 +10,8 @@ Prints expense summary and prompt for adding a new expense.
 - add quantity column
 - completion menu
 - optionally specify date for expense
-- default price is 0
-- default category is '/'
+- ~default price is 0~
+- default category is '/none'
 - allow no-name items
 - error when only price (and date) is inserted
 - add header to CSV files
