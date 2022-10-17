@@ -5,7 +5,7 @@ from typing import List, Iterable, Optional
 from meetang import paths
 
 quantity_regex = re.compile(r'^\d+x|X$')
-
+price_regex = re.compile(r'\d*[.,]?\d*')
 
 @dataclass
 class Expense:
@@ -18,14 +18,6 @@ class Expense:
         return f'{self.quantity}x {self.item} for {self.price} in {self.category}'
 
 
-def is_price(word):
-    try:
-        float(word)
-        return True
-    except ValueError:
-        return False
-
-
 def parse_arguments(user_input: str) -> Expense:
     item = ''
     category = ''
@@ -36,9 +28,9 @@ def parse_arguments(user_input: str) -> Expense:
     for arg in args:
         if arg.startswith('/'):
             category = arg
-        elif quantity_regex.match(arg):
+        elif quantity_regex.fullmatch(arg):
             quantity = int(arg[:-1])
-        elif is_price(arg):
+        elif price_regex.fullmatch(arg):
             price = float(arg)
         else:
             item += arg + " "
