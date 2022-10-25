@@ -57,7 +57,7 @@ def parse_arguments(user_input: str) -> Expense:
 
 
 def store_expense(expense: Expense):
-    csv_line = str(expense.quantity) + ',' + expense.item + ',' + str(expense.price) + ',' + expense.category + '\n'
+    csv_line = str(expense.date) + ',' + str(expense.quantity) + ',' + expense.item + ',' + str(expense.price) + ',' + expense.category + '\n'
     with open(paths.expenses_path(True), 'a+') as file_object:
         file_object.write(csv_line)
 
@@ -68,8 +68,9 @@ def load_expense() -> List[Expense]:
     with open(paths.expenses_path()) as file_object:
         lines = file_object.readlines()
         for line in lines:
-            quantity, item, price, category, *_ = line.rstrip().split(',')
-            expense = Expense(int(quantity), item, float(price), category)
+            date, quantity, item, price, category, *_ = line.rstrip().split(',')
+            dt_object = datetime.date.fromisoformat(date)
+            expense = Expense(int(quantity), item, float(price), category, dt_object)
             expenses.append(expense)
 
     return expenses
