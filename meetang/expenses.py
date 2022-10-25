@@ -1,7 +1,7 @@
 import datetime
 import re
-
 from dataclasses import dataclass
+from datetime import timedelta
 from typing import List, Iterable, Optional
 
 from meetang import paths
@@ -22,7 +22,7 @@ class Expense:
         return self.quantity > 0 and self.price >= 0 and (bool(self.item) or bool(self.category))
 
     def __str__(self):
-        return f'{self.quantity}x {self.item} for {self.price} in {self.category}'
+        return f'{self.quantity}x {self.item} for {self.price} in {self.category} on {self.date}'
 
 
 class InvalidInput(Exception):
@@ -38,6 +38,7 @@ def parse_arguments(user_input: str) -> Expense:
     category = ''
     price = 0
     quantity = 1
+    date = datetime.date.today()
 
     args: List[str] = user_input.split()
     for arg in args:
@@ -47,10 +48,12 @@ def parse_arguments(user_input: str) -> Expense:
             quantity = int(arg[:-1])
         elif price_regex.fullmatch(arg):
             price = float(arg)
+        elif arg == 'yesterday':
+            date = datetime.date.today() - timedelta(days=1)
         else:
             item += arg + " "
 
-    return Expense(quantity, item.rstrip(), price, category)
+    return Expense(quantity, item.rstrip(), price, category, date)
 
 
 def store_expense(expense: Expense):
