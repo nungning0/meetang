@@ -27,6 +27,10 @@ class InvalidInput(Exception):
 
 
 def parse_arguments(user_input: str) -> Expense:
+    """
+    :param user_input: terminal input representing single expense
+    :return: instance of Expense
+    """
     item = ''
     category = ''
     price = 0
@@ -43,7 +47,6 @@ def parse_arguments(user_input: str) -> Expense:
         else:
             item += arg + " "
 
-    # if not parsed_expense.item
     return Expense(quantity, item.rstrip(), price, category)
 
 
@@ -95,8 +98,10 @@ if __name__ == "__main__":
     while True:
         user_input: str = input('Add your expenses: ')
         parsed_expense: Expense = parse_arguments(user_input)
-        if not parsed_expense.item:
-            print("no item")
-        else:
-            print(parsed_expense)
-            store_expense(parsed_expense)
+
+        if not parsed_expense.is_valid():
+            print("Invalid input: at least one of item or category is mandatory")
+            continue
+
+        print(parsed_expense)
+        store_expense(parsed_expense)
