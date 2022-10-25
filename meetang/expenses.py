@@ -1,4 +1,6 @@
+import datetime
 import re
+
 from dataclasses import dataclass
 from typing import List, Iterable, Optional
 
@@ -14,6 +16,7 @@ class Expense:
     item: str
     price: float
     category: str
+    date: datetime.date = datetime.date.today()
 
     def is_valid(self) -> bool:
         return self.quantity > 0 and self.price >= 0 and (bool(self.item) or bool(self.category))

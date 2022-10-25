@@ -5,15 +5,15 @@
 Prints expense summary and prompt for adding a new expense.
 
 ## todo
-- [ ] expenses files per monthen
+- [ ] optionally specify date for expense
+- [ ] expenses files per month
 - [ ] add ID column
 - [x] add quantity column
 - [ ] completion menu
-- [ ] optionally specify date for expense
 - [x] default price is 0
 - [ ] default category is '/none'
 - [ ] allow no-name items
-- [ ] error when only price (and date) is inserted
+- [x] error when only price (and date) is inserted
 - [ ] add header to CSV files
 - [ ] support custom columns (store:rimping)
 
