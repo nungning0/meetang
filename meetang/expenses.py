@@ -7,6 +7,7 @@ from meetang import paths
 quantity_regex = re.compile(r'^\d+x|X$')
 price_regex = re.compile(r'\d*[.,]?\d*')
 
+
 @dataclass
 class Expense:
     quantity: int
@@ -14,8 +15,15 @@ class Expense:
     price: float
     category: str
 
+    def is_valid(self) -> bool:
+        return self.quantity > 0 and self.price >= 0 and (bool(self.item) or bool(self.category))
+
     def __str__(self):
         return f'{self.quantity}x {self.item} for {self.price} in {self.category}'
+
+
+class InvalidInput(Exception):
+    pass
 
 
 def parse_arguments(user_input: str) -> Expense:
@@ -35,6 +43,7 @@ def parse_arguments(user_input: str) -> Expense:
         else:
             item += arg + " "
 
+    # if not parsed_expense.item
     return Expense(quantity, item.rstrip(), price, category)
 
 
